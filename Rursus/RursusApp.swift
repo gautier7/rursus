@@ -9,9 +9,17 @@ import SwiftUI
 
 @main
 struct RursusApp: App {
+    @StateObject private var authViewModel = AuthenticationViewModel()
+    
     var body: some Scene {
         WindowGroup {
-            ContentView()
+            if authViewModel.isAuthenticated {
+                TabBarView()
+                    .environmentObject(authViewModel)
+            } else {
+                ContentView()
+                    .environmentObject(authViewModel)
+            }
         }
     }
 }
